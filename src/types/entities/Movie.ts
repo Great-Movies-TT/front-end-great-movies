@@ -1,7 +1,7 @@
 export interface Movie {
   id: number;
   title: string;
-  description?: string;
+  description: string;
   actors: string[];
   genre: string;
   rating: number;
