@@ -1,6 +1,6 @@
 export const colors = {
   mainWhite: "#FFFFFF",
-  mainBlack: "#2A2B2F",
+  mainBlack: "#000000",
   mainSecondaryText: "#505F6F",
   mainBlue: "#5865F2",
   mainError: "#F72F53",

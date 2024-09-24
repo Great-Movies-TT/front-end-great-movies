@@ -23,6 +23,9 @@ const BaseModal = ({
         zIndex: index,
         backdropFilter: "blur(10px)",
         padding: "0px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
       slotProps={{
         backdrop: {
