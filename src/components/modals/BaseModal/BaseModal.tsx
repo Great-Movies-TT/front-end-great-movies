@@ -1,7 +1,7 @@
 import { Box, IconButton, Modal, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import { ServiceModalConfig } from "../../../types";
-import { CloseIcon } from "../../../assets/icons";
+import { ServiceModalConfig } from "@/types";
+import { CloseIcon } from "@/assets/icons";
 
 interface BaseModalProps extends ServiceModalConfig {
   title?: string;

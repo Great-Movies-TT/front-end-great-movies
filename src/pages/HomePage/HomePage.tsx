@@ -1,6 +1,6 @@
-import { ServiceModalName } from "../../enums";
-import { useAppDispatch } from "../../hooks";
-import { addServiceModal } from "../../redux/slices/serviceModalSlice";
+import { ServiceModalName } from "@/enums";
+import { useAppDispatch } from "@/hooks";
+import { addServiceModal } from "@/redux/slices/serviceModalSlice";
 
 function HomePage() {
   const dispatch = useAppDispatch();

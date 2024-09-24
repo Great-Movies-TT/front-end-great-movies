@@ -3,11 +3,11 @@ import {
   createBrowserRouter,
   RouterProvider as Provider,
 } from "react-router-dom";
-import { ROUTES } from "../../../enums";
-import App from "../../../App";
-import HomePage from "../../../pages/HomePage/HomePage";
-import MovieDetailsPage from "../../../pages/MovieDetailsPage/MovieDetailsPage";
-import FavoritesPage from "../../../pages/FavoritesPage/FavoritesPage";
+import { ROUTES } from "@/enums";
+import App from "@/App";
+import HomePage from "@/pages/HomePage/HomePage";
+import MovieDetailsPage from "@/pages/MovieDetailsPage/MovieDetailsPage";
+import FavoritesPage from "@/pages/FavoritesPage/FavoritesPage";
 
 const router = createBrowserRouter([
   {

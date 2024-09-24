@@ -1,6 +1,6 @@
-import { ServiceModalName } from "../../enums";
-import { useAppSelector } from "../../hooks";
-import { RootState } from "../store";
+import { ServiceModalName } from "@/enums";
+import { useAppSelector } from "@/hooks";
+import { RootState } from "@/redux/store";
 
 export const selectServiceModals = () =>
   useAppSelector((state: RootState) => state.serviceModalSlice);

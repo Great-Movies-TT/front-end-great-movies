@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ServiceModalName } from "../../../enums";
-import { ServiceModalState } from "../../../types";
+import { ServiceModalName } from "@/enums";
+import { ServiceModalState } from "@/types";
 
 const initialState: ServiceModalState = {};
 

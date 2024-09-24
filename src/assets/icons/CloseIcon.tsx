@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import type { WithSx } from "../../types";
+import type { WithSx } from "@/types";
 
 type CloseIconProps = WithSx<{}>;
 

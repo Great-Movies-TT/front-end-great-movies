@@ -1,10 +1,10 @@
 import React, { Suspense, useEffect } from "react";
-import { ServiceModalName } from "../../../enums";
-import { selectServiceModals } from "../../../redux/selectors/serviceModalSelector";
-import { ServiceModalBaseIndex } from "../../../constants";
+import { ServiceModalName } from "@/enums";
+import { selectServiceModals } from "@/redux/selectors/serviceModalSelector";
+import { ServiceModalBaseIndex } from "@/constants";
 
 const AddMovie = React.lazy(
-  () => import("../../../components/modals/AddMovieModal/AddMovieModal")
+  () => import("@/components/modals/AddMovieModal/AddMovieModal")
 );
 
 const ServiceModalProvider = ({ children }: { children: React.ReactNode }) => {
