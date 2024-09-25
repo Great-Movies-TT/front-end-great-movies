@@ -58,10 +58,21 @@ export const Dropdown: React.FC<DropdownProps> = ({
   );
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       {label && (
         <Box sx={{ display: "flex", mb: 0.5 }}>
-          <Typography variant="subtitle2">{label}</Typography>
+          <Typography
+            variant="subtitle2"
+            sx={{ color: theme.palette.common.white }}
+          >
+            {label}
+          </Typography>
           {required && (
             <Typography
               variant="subtitle2"
@@ -132,7 +143,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         <MenuItem sx={{ display: "none" }} value="">
           <Typography
             sx={{
-              color: theme.palette.text.secondary,
+              color: "rgba(255, 255, 255, 0.3)",
             }}
           >
             {placeholder}
