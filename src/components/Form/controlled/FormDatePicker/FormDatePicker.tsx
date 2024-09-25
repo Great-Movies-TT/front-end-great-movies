@@ -25,7 +25,6 @@ export const FormDatePicker = ({
   minDate,
   maxDate,
   required,
-  error,
   rules,
   sx,
 }: FormDatePickerProps) => {
@@ -42,7 +41,7 @@ export const FormDatePicker = ({
           maxDate={maxDate}
           disablePast={disablePast}
           disableFuture={disableFuture}
-          value={value || null}
+          value={new Date(value) || null}
           onChange={(formattedDate: string | null) => {
             onChange(formattedDate);
           }}

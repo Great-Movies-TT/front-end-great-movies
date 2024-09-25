@@ -1,10 +1,17 @@
 import React, { Suspense, useEffect } from "react";
 import { ServiceModalName } from "@/enums";
 import { selectServiceModals } from "@/redux/selectors/serviceModalSelector";
-import { ServiceModalBaseIndex } from "@/constants";
 
 const AddMovie = React.lazy(
   () => import("@/components/modals/AddMovieModal/AddMovieModal")
+);
+
+const EditMovie = React.lazy(
+  () => import("@/components/modals/AddMovieModal/AddMovieModal")
+);
+
+const AddMovieLeave = React.lazy(
+  () => import("@/components/modals/AddMovieLeaveModal/AddMovieLeaveModal")
 );
 
 const ServiceModalProvider = ({ children }: { children: React.ReactNode }) => {
@@ -20,14 +27,29 @@ const ServiceModalProvider = ({ children }: { children: React.ReactNode }) => {
     };
   }, [modalKeys]);
 
-  const getModalComponent = (key: ServiceModalName, index: number) => {
+  const getModalComponent = (key: ServiceModalName) => {
     switch (key) {
       case ServiceModalName.AddMovie:
         return (
           <Suspense fallback={<div>Loading...</div>}>
-            <AddMovie index={ServiceModalBaseIndex + index} />
+            <AddMovie />
           </Suspense>
         );
+
+      case ServiceModalName.EditMovie:
+        return (
+          <Suspense fallback={<div>Loading...</div>}>
+            <EditMovie />
+          </Suspense>
+        );
+
+      case ServiceModalName.AddMovieLeave:
+        return (
+          <Suspense fallback={<div>Loading...</div>}>
+            <AddMovieLeave />
+          </Suspense>
+        );
+
       default:
         return null;
     }
@@ -36,10 +58,8 @@ const ServiceModalProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       {children}
-      {modalKeys.map((key: any, index) => (
-        <React.Fragment key={key}>
-          {getModalComponent(key, index)}
-        </React.Fragment>
+      {modalKeys.map((key: any) => (
+        <React.Fragment key={key}>{getModalComponent(key)}</React.Fragment>
       ))}
     </>
   );
