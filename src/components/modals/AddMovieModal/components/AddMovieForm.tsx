@@ -8,12 +8,13 @@ import {
   removeServiceModal,
 } from "@/redux/slices/serviceModalSlice/serviceModalSlice";
 import { ServiceModalName } from "@/enums";
-import { useDispatch } from "react-redux";
 import { validationSchema } from "./validationScheme";
-import { AppDispatch } from "@/redux/store";
 // import { formatISO } from "date-fns";
 import { useEffect, useRef } from "react";
 import { AddMovieFormView } from ".";
+import { useAppDispatch } from "@/hooks";
+import { addMovieRequest } from "@/redux/slices/movieSlice/movieSlice";
+import { AddMovie } from "@/types";
 
 type FormData = yup.InferType<ReturnType<typeof validationSchema>>;
 
@@ -24,13 +25,14 @@ interface AddMovieFormProps {
 export const AddMovieForm = ({ movieId }: AddMovieFormProps) => {
   // const movieData = selectMovieData();
   // const isLoading = selectMovieDataLoading();
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const defaultValues: FormData = {
     title: "",
     description: "",
     actors: [],
     genre: "",
+    director: "",
     rating: 1,
     releaseDate: "",
     imageUrl: "",
@@ -104,9 +106,9 @@ export const AddMovieForm = ({ movieId }: AddMovieFormProps) => {
     }
   };
 
-  const handleFormSubmit: SubmitHandler<FormData> = (movie) => {
-    dispatch(removeServiceModal(ServiceModalName.AddMovie));
-    console.log(movie);
+  const handleFormSubmit: SubmitHandler<FormData> = (movie: AddMovie) => {
+    // dispatch(removeServiceModal(ServiceModalName.AddMovie));
+    // console.log(movie);
 
     // const formatedEvent = {
     //   ...movie,
@@ -117,9 +119,11 @@ export const AddMovieForm = ({ movieId }: AddMovieFormProps) => {
       // dispatch(updateEventById({ id: movieId, payload: formatedEvent }));
       dispatch(removeServiceModal(ServiceModalName.EditMovie));
     } else {
-      // dispatch(createEvent(formatedEvent));
-      dispatch(removeServiceModal(ServiceModalName.EditMovie));
+      console.log("WORKING!!!");
+      
+      // dispatch(removeServiceModal(ServiceModalName.AddMovie));
     }
+    dispatch(addMovieRequest(movie));
   };
 
   return (

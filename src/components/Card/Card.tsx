@@ -1,10 +1,11 @@
 import { Box, Button, Paper, Typography } from "@mui/material";
 import theme from "@/styles/muiTheme";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Movie } from "@/types";
 import { truncate } from "@/utils";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { addFavorite } from "@/redux/slices/favoritesSlice/favoritesSlice";
+import { deleteMovieRequest } from "@/redux/slices/movieSlice/movieSlice";
 
 interface CardProps {
   movie: Movie;
@@ -12,16 +13,37 @@ interface CardProps {
 
 export const Card = ({ movie }: CardProps) => {
   const dispatch = useAppDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
   const favorites = useAppSelector((state) => state.favoritesSlice.favorites);
-  const isAdded = favorites.some((favorite) => favorite.id === movie.id);
+  const isAdded = favorites.some((favorite) => favorite._id === movie._id);
 
   const handleAddToFavorites = () => {
     dispatch(addFavorite(movie));
+
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.delete("genre");
+    newSearchParams.delete("minRating");
+
+    setSearchParams(newSearchParams);
   };
+
+  const handleDeleteMovie = () => {
+    dispatch(deleteMovieRequest(movie._id));
+
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.delete("genre");
+    newSearchParams.delete("minRating");
+
+    setSearchParams(newSearchParams);
+  };
+
+  const handleEditMovie = () => {};
+
   return (
     <Paper
       elevation={5}
       sx={{
+        position: "relative",
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
@@ -32,8 +54,64 @@ export const Card = ({ movie }: CardProps) => {
       }}
     >
       <Box
+        component={Button}
+        onClick={handleDeleteMovie}
+        sx={{
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          pl: 2.5,
+          top: "20px",
+          right: 0,
+          width: "80px",
+          height: "30px",
+          zIndex: 1,
+          backgroundColor: theme.palette.primary.main,
+          borderRadius: "8px",
+          textTransform: "none",
+          color: theme.palette.common.white,
+          transform: "translateX(70%)",
+          transition: "all 0.3s ease",
+          "&:hover": {
+            transform: "translateX(5%)",
+            opacity: 0.7,
+            transition: "all 0.3s ease",
+          },
+        }}
+      >
+        Delete
+      </Box>
+      <Box
+        component={Button}
+        onClick={handleEditMovie}
+        sx={{
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          pl: 2.5,
+          top: "70px",
+          right: 0,
+          width: "80px",
+          height: "30px",
+          zIndex: 1,
+          backgroundColor: theme.palette.primary.main,
+          borderRadius: "8px",
+          textTransform: "none",
+          color: theme.palette.common.white,
+          transform: "translateX(70%)",
+          transition: "all 0.3s ease",
+          "&:hover": {
+            transform: "translateX(5%)",
+            opacity: 0.7,
+            transition: "all 0.3s ease",
+          },
+        }}
+      >
+        Edit
+      </Box>
+      <Box
         component={Link}
-        to={`/movies/${movie.id}`}
+        to={`/movies/${movie._id}`}
         sx={{ display: "flex", flexDirection: "column", overflow: "hidden" }}
       >
         <Box
@@ -72,7 +150,7 @@ export const Card = ({ movie }: CardProps) => {
         </Box>
         <Typography
           component={Link}
-          to={`/movies/${movie.id}`}
+          to={`/movies/${movie._id}`}
           variant="h6"
           sx={{
             color: theme.palette.common.white,

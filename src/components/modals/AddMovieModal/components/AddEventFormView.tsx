@@ -52,6 +52,15 @@ export const AddMovieFormView = ({ control }: AddMovieFormViewProps) => {
         sx={{ width: "100%" }}
       />
       <FormInputText
+        name="director"
+        control={control}
+        label="Director"
+        placeholder="Enter director name"
+        required={true}
+        multiline
+        sx={{ width: "100%" }}
+      />
+      <FormInputText
         name="description"
         control={control}
         label="Description"

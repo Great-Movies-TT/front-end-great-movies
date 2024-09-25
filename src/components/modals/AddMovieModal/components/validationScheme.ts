@@ -21,8 +21,15 @@ export const validationSchema = () => {
       .string()
       .required("This field is required")
       .trim()
-      .min(2, "Invalid movie place minimum 2 chars")
-      .max(20, "Invalid movie place maximum 20 chars"),
+      .min(2, "Invalid movie genre minimum 2 chars")
+      .max(40, "Invalid movie genre maximum 40 chars"),
+
+    director: yup
+      .string()
+      .required("This field is required")
+      .trim()
+      .min(2, "Invalid director minimum 2 chars")
+      .max(40, "Invalid director maximum 40 chars"),
 
     description: yup
       .string()

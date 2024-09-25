@@ -7,8 +7,8 @@ import { AddMovieForm } from "../AddMovieModal/components";
 const AddEventModal = () => {
   const dispatch = useAppDispatch();
 
-  // const payload = selectServiceModalPayload(ServiceModalName.EditEvent);
-  // const { id } = payload || {};
+  // const payload = selectServiceModalPayload(ServiceModalName.EditMovie);
+  // const { _id } = payload || {};
 
   // useEffect(() => {
   //   if (id) {

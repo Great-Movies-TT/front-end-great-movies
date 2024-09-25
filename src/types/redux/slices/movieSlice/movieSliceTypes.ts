@@ -1,7 +1,8 @@
-import { Movie } from "@//types";
+import { Movie } from "@/types";
 
 export interface MovieState {
   movies: Movie[];
+  totalCount: number;
   isLoading: boolean;
-  error: string;
+  error: string | null;
 }
