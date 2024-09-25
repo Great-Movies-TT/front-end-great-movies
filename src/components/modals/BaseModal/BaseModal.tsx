@@ -2,6 +2,7 @@ import { Box, IconButton, Modal, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { ServiceModalConfig } from "@/types";
 import { CloseIcon } from "@/assets/icons";
+import theme from "@/styles/muiTheme";
 
 interface BaseModalProps extends ServiceModalConfig {
   title?: string;
@@ -45,6 +46,7 @@ const BaseModal = ({
           width: "100%",
           maxWidth: width,
           borderRadius: "12px",
+          backgroundColor: "rgba(80, 95, 111, 1)",
         }}
       >
         <IconButton
@@ -79,11 +81,14 @@ const BaseModal = ({
             justifyContent: "center",
             alignItems: "center",
             textAlign: "center",
-            backgroundColor: "white",
+            backgroundColor: "rgba(80, 95, 111, 1)",
           }}
         >
           {title && (
-            <Typography variant="h4" sx={{ pb: 4 }}>
+            <Typography
+              variant="h4"
+              sx={{ pb: 4, color: theme.palette.common.white }}
+            >
               {title}
             </Typography>
           )}

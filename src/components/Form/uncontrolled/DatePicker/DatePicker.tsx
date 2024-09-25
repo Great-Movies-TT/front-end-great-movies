@@ -47,9 +47,8 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
       onChange,
       required,
       inputRef,
-      ...rest
     },
-    ref
+    _ref
   ) => {
     const theme = useTheme();
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -140,7 +139,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
                             path: {
                               stroke: error
                                 ? theme.palette.error.main
-                                : theme.palette.text.secondary,
+                                : theme.palette.common.white,
                             },
                           }}
                         />
@@ -171,7 +170,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
           />
 
           {error && (
-            <FormHelperText>
+            <FormHelperText component={Box}>
               <Typography
                 variant="subtitle2"
                 sx={{

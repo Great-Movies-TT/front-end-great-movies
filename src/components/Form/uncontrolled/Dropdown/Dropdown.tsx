@@ -44,7 +44,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 }) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [focused, setFocused] = useState(false);
+  const [_focused, setFocused] = useState(false);
 
   const handleFocus = () => setFocused(true);
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -123,6 +123,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           },
         }}
         sx={{
+          color: theme.palette.common.white,
           borderColor: error
             ? theme.palette.error.main
             : theme.palette.common.black,
@@ -157,7 +158,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       </Select>
 
       {error && (
-        <FormHelperText>
+        <FormHelperText component={Box}>
           <Typography
             variant="subtitle2"
             sx={{

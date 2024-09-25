@@ -1,9 +1,8 @@
 import React, { forwardRef, useState } from "react";
-import { Box, Typography, TextField, InputAdornment } from "@mui/material";
+import { Box, Typography, TextField } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import type { WithSx } from "@/types";
 import FormHelperText from "@mui/material/FormHelperText";
-import { AlertCircleIcon } from "@/assets/icons";
 
 interface InputTextProps extends WithSx {
   name: string;
@@ -11,7 +10,6 @@ interface InputTextProps extends WithSx {
   error?: string;
   inputRef?: React.Ref<HTMLInputElement>;
   value: string;
-  type?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   placeholder?: string;
@@ -19,7 +17,6 @@ interface InputTextProps extends WithSx {
   multiline?: boolean;
   minRows?: number;
   maxRows?: number;
-  defaultValue?: string;
 }
 
 export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
@@ -38,13 +35,12 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
       multiline = false,
       minRows = 1,
       maxRows = 1,
-      type = "text",
       ...rest
     },
-    ref
+    _ref
   ) => {
     const theme = useTheme();
-    const [focused, setFocused] = useState(false);
+    const [_focused, setFocused] = useState(false);
 
     const handleFocus = () => setFocused(true);
     const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -55,7 +51,12 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
     return (
       <Box>
         <Box sx={{ display: "flex", marginBottom: "4px" }}>
-          <Typography variant="subtitle2">{label}</Typography>
+          <Typography
+            variant="subtitle2"
+            sx={{ color: theme.palette.common.white }}
+          >
+            {label}
+          </Typography>
           {required && (
             <Typography
               variant="subtitle2"
@@ -72,28 +73,12 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
           name={name}
           error={!!error}
           value={value}
-          type={type}
           onChange={onChange}
           onBlur={handleBlur}
           onFocus={handleFocus}
           placeholder={placeholder}
           required={required}
           fullWidth
-          inputProps={{
-            endAdornment:
-              error && !focused ? (
-                <InputAdornment
-                  position="end"
-                  sx={{
-                    right: "12px",
-                    top: minRows > 1 ? "20px" : "auto",
-                    position: "absolute",
-                  }}
-                >
-                  <AlertCircleIcon sx={{ width: "16px", height: "16px" }} />
-                </InputAdornment>
-              ) : null,
-          }}
           sx={{
             "& .MuiOutlinedInput-root": {
               padding: "0px",
@@ -111,8 +96,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
                 lineHeight: "normal",
                 color: theme.palette.common.white,
                 "&::placeholder": {
-                  color: "rgba(255, 255, 255, 0.3)",
-                  opacity: 1,
+                  color: "rgba(255, 255, 255, 0.8)",
                 },
               },
               "&:hover fieldset": {
@@ -138,7 +122,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
           {...rest}
         />
         {error && (
-          <FormHelperText>
+          <FormHelperText component={Box}>
             <Typography
               variant="subtitle2"
               sx={{

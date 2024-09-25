@@ -15,7 +15,7 @@ function HomePage() {
   const [sortByGenre, setSortByGenre] = useState("");
   const [sortByRating, setSortByRating] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalMovies, setTotalMovies] = useState(0);
+  // const [totalMovies, setTotalMovies] = useState(0);
 
   const itemsPerPage = 8;
 
@@ -72,7 +72,7 @@ function HomePage() {
   };
 
   const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
+    _event: React.ChangeEvent<unknown>,
     value: number
   ) => {
     setCurrentPage(value);

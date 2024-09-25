@@ -58,7 +58,6 @@ export const FormInputText = <TFieldValues extends FieldValues>({
           multiline={multiline}
           minRows={minRows}
           maxRows={maxRows}
-          defaultValue={value}
         />
       )}
     />

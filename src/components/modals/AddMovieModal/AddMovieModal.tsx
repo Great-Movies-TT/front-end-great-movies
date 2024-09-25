@@ -1,18 +1,35 @@
-import { Typography } from "@mui/material";
 import BaseModal from "@/components/modals/BaseModal/BaseModal";
 import { useAppDispatch } from "@/hooks";
 import { removeServiceModal } from "@/redux/slices/serviceModalSlice";
-import { BaseModalSize, ServiceModalName } from "@/enums";
+import { ServiceModalName } from "@/enums";
+import { AddMovieForm } from "../AddMovieModal/components";
 
-export default function AddMovieModal({ index }: { index: number }) {
+const AddEventModal = () => {
   const dispatch = useAppDispatch();
-  const handleClose = () => {
+
+  // const payload = selectServiceModalPayload(ServiceModalName.EditEvent);
+  // const { id } = payload || {};
+
+  // useEffect(() => {
+  //   if (id) {
+  //     dispatch(fetchEventById(id));
+  //   }
+  // }, [id, dispatch]);
+
+  const handleOnClose = () => {
     dispatch(removeServiceModal(ServiceModalName.AddMovie));
   };
 
   return (
-    <BaseModal width={BaseModalSize.Medium} onClose={handleClose} index={1000}>
-      <Typography>Add movie</Typography>
+    <BaseModal
+      title={"Add Movie"}
+      onClose={handleOnClose}
+      index={1000}
+      width="752px"
+    >
+      <AddMovieForm movieId={"1"} />
     </BaseModal>
   );
-}
+};
+
+export default AddEventModal;
