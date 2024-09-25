@@ -3,12 +3,21 @@ import theme from "@/styles/muiTheme";
 import { Link } from "react-router-dom";
 import { Movie } from "@/types";
 import { truncate } from "@/utils";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { addFavorite } from "@/redux/slices/favoritesSlice/favoritesSlice";
 
 interface CardProps {
   movie: Movie;
 }
 
 export const Card = ({ movie }: CardProps) => {
+  const dispatch = useAppDispatch();
+  const favorites = useAppSelector((state) => state.favoritesSlice.favorites);
+  const isAdded = favorites.some((favorite) => favorite.id === movie.id);
+
+  const handleAddToFavorites = () => {
+    dispatch(addFavorite(movie));
+  };
   return (
     <Paper
       elevation={5}
@@ -29,7 +38,7 @@ export const Card = ({ movie }: CardProps) => {
       >
         <Box
           component="img"
-          src={String(movie.imageUrl)}
+          src={movie.imageUrl}
           sx={{
             display: "block",
             height: "300px",
@@ -86,9 +95,11 @@ export const Card = ({ movie }: CardProps) => {
 
       <Button
         variant="contained"
-        onClick={() => {}}
+        onClick={handleAddToFavorites}
         sx={{
-          backgroundColor: theme.palette.info.main,
+          backgroundColor: isAdded
+            ? theme.palette.primary.main
+            : theme.palette.info.main,
           color: theme.palette.common.black,
           textTransform: "none",
           transition: "all 0.3s ease",
@@ -98,7 +109,7 @@ export const Card = ({ movie }: CardProps) => {
           },
         }}
       >
-        Add to favorites
+        {isAdded ? "Added" : "Add to favorites"}
       </Button>
     </Paper>
   );
