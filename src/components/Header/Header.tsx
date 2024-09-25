@@ -37,8 +37,9 @@ export const Header = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
           <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
-            <Link to={ROUTES.HOME}>
-              <img
+            <Box component={Link} to={ROUTES.HOME}>
+              <Box
+                component="img"
                 src={
                   "https://s.dou.ua/CACHE/images/img/static/companies/LOGO_VRB_2_1/7d27320406462752bd958b7afdf7e364.png"
                 }
@@ -47,7 +48,7 @@ export const Header = () => {
                 height={50}
                 style={{ cursor: "pointer", marginRight: "20px" }}
               />
-            </Link>
+            </Box>
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -78,7 +79,20 @@ export const Header = () => {
                   onClick={handleCloseNavMenu}
                   sx={{ textAlign: "center" }}
                 >
-                  <Box component={Link} onClick={handleCloseNavMenu} to={page.href} sx={{textDecoration: "none"}}>
+                  <Box
+                    component={Link}
+                    onClick={handleCloseNavMenu}
+                    to={page.href}
+                    sx={{
+                      textDecoration: "none",
+                      color: theme.palette.common.black,
+                      transition: "color 0.3s ease",
+                      "&:hover": {
+                        color: theme.palette.primary.main,
+                        transition: "color 0.3s ease",
+                      },
+                    }}
+                  >
                     {page.name}
                   </Box>
                 </MenuItem>
@@ -86,17 +100,18 @@ export const Header = () => {
             </Menu>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
-            <Link to={ROUTES.HOME}>
-              <img
+            <Box component={Link} to={ROUTES.HOME}>
+              <Box
+                component="img"
                 src={
                   "https://s.dou.ua/CACHE/images/img/static/companies/LOGO_VRB_2_1/7d27320406462752bd958b7afdf7e364.png"
                 }
                 alt="VRB Tech Logo"
                 width={100}
                 height={50}
-                style={{ cursor: "pointer", marginRight: "20px" }}
+                sx={{ cursor: "pointer", marginRight: "20px" }}
               />
-            </Link>
+            </Box>
           </Box>
           <Box
             sx={{
@@ -107,14 +122,36 @@ export const Header = () => {
             }}
           >
             {pagesList.map((page) => (
-              <Link key={page.id} onClick={handleCloseNavMenu} to={page.href}>
+              <Box
+                component={Link}
+                key={page.id}
+                onClick={handleCloseNavMenu}
+                to={page.href}
+                sx={{
+                  color: theme.palette.common.white,
+                  transition: "color 0.3s ease",
+                  "&:hover": {
+                    color: theme.palette.primary.main,
+                    transition: "color 0.3s ease",
+                  },
+                }}
+              >
                 <Typography
                   noWrap
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{
+                    my: 2,
+                    display: "block",
+                    color: theme.palette.common.white,
+                    transition: "color 0.3s ease",
+                    "&:hover": {
+                      color: theme.palette.primary.main,
+                      transition: "color 0.3s ease",
+                    },
+                  }}
                 >
                   {page.name}
                 </Typography>
-              </Link>
+              </Box>
             ))}
           </Box>
         </Toolbar>

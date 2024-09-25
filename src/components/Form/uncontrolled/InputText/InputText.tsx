@@ -9,8 +9,9 @@ interface InputTextProps extends WithSx {
   name: string;
   label: string;
   error?: string;
-  inputRef: React.Ref<HTMLInputElement>;
+  inputRef?: React.Ref<HTMLInputElement>;
   value: string;
+  type?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   placeholder?: string;
@@ -37,6 +38,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
       multiline = false,
       minRows = 1,
       maxRows = 1,
+      type = "text",
       ...rest
     },
     ref
@@ -70,6 +72,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
           name={name}
           error={!!error}
           value={value}
+          type={type}
           onChange={onChange}
           onBlur={handleBlur}
           onFocus={handleFocus}
@@ -95,9 +98,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
             "& .MuiOutlinedInput-root": {
               padding: "0px",
               "& fieldset": {
-                borderColor: error
-                  ? theme.palette.error.main
-                  : null,
+                borderColor: error ? theme.palette.error.main : null,
                 borderWidth: "1px",
                 borderRadius: "8px",
                 fontWeight: "400",
@@ -108,9 +109,9 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
                 padding: "11px 12px",
                 fontSize: "16px",
                 lineHeight: "normal",
-                color: theme.palette.common.black,
+                color: theme.palette.common.white,
                 "&::placeholder": {
-                  color: theme.palette.text.secondary,
+                  color: "rgba(255, 255, 255, 0.3)",
                   opacity: 1,
                 },
               },
