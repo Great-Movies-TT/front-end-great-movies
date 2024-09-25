@@ -1,5 +1,5 @@
 import { Card, Dropdown } from "@/components";
-import { Box, Button, SelectChangeEvent } from "@mui/material";
+import { Box, Button, Pagination, SelectChangeEvent } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { mockedMovies } from "@/constants";
 import { useEffect, useState } from "react";
@@ -14,6 +14,10 @@ function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [sortByGenre, setSortByGenre] = useState("");
   const [sortByRating, setSortByRating] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalMovies, setTotalMovies] = useState(0);
+
+  const itemsPerPage = 8;
 
   const dispatch = useDispatch();
 
@@ -29,19 +33,22 @@ function HomePage() {
   useEffect(() => {
     const querySortByGenre = searchParams.get("genre");
     const querySortByRating = searchParams.get("minRating");
+    const queryPage = searchParams.get("page");
 
     if (querySortByGenre) setSortByGenre(querySortByGenre);
     if (querySortByRating)
       setSortByRating(querySortByRating ? Number(querySortByRating) : null);
+    if (queryPage) setCurrentPage(Number(queryPage));
   }, [searchParams]);
 
   useEffect(() => {
     const query: { [key: string]: string } = {};
     if (sortByGenre) query.genre = sortByGenre;
     if (sortByRating) query.minRating = String(sortByRating);
+    if (currentPage) query.page = String(currentPage);
 
     setSearchParams(query);
-  }, [sortByGenre, sortByRating, setSearchParams]);
+  }, [sortByGenre, sortByRating, currentPage, setSearchParams]);
 
   const addMovieHandler = () => {
     dispatch(
@@ -63,6 +70,15 @@ function HomePage() {
     setSortByGenre("");
     setSortByRating(null);
   };
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setCurrentPage(value);
+  };
+
+  const totalPages = Math.ceil(mockedMovies.length / itemsPerPage);
 
   return (
     <Box>
@@ -147,7 +163,7 @@ function HomePage() {
         </Grid>
       </Grid>
 
-      <Grid container spacing={4}>
+      <Grid container spacing={4} sx={{ mb: 8 }}>
         {mockedMovies.map((movie) => (
           <Grid
             key={movie.id}
@@ -161,6 +177,25 @@ function HomePage() {
             <Card movie={movie} />
           </Grid>
         ))}
+      </Grid>
+
+      <Grid container sx={{ width: "100%" }}>
+        <Grid
+          size={{ xs: 12 }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            variant="outlined"
+            shape="rounded"
+            color="primary"
+          />
+        </Grid>
       </Grid>
     </Box>
   );
