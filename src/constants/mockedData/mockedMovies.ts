@@ -7,10 +7,9 @@ export const mockedMovies = [
     actors: ["Elijah Wood", "Ian McKellen", "Orlando Bloom"],
     genre: "Fantasy",
     rating: 8.8,
-    releaseDate: new Date("2001-07-29"),
-    imageUrl: new URL(
-      "https://m.media-amazon.com/images/M/MV5BNTQzNGZjNDEtOTMwYi00MzFjLWE2ZTYtYzYxYzMwMjZkZDc5XkEyXkFqcGc@._V1_.jpg"
-    ),
+    releaseDate: "2001-07-29",
+    imageUrl:
+      "https://m.media-amazon.com/images/M/MV5BNTQzNGZjNDEtOTMwYi00MzFjLWE2ZTYtYzYxYzMwMjZkZDc5XkEyXkFqcGc@._V1_.jpg",
   },
   {
     id: 2,
@@ -20,10 +19,9 @@ export const mockedMovies = [
     actors: ["Elijah Wood", "Ian McKellen", "Viggo Mortensen"],
     genre: "Fantasy",
     rating: 8.9,
-    releaseDate: new Date("2002-12-18"),
-    imageUrl: new URL(
-      "https://m.media-amazon.com/images/M/MV5BNzIxMDQ2YTctNDY4MC00ZTRhLTk4ODQtMTVlOWY4NTdiYmMwXkEyXkFqcGc@._V1_.jpg"
-    ),
+    releaseDate: "2002-12-18",
+    imageUrl:
+      "https://m.media-amazon.com/images/M/MV5BNzIxMDQ2YTctNDY4MC00ZTRhLTk4ODQtMTVlOWY4NTdiYmMwXkEyXkFqcGc@._V1_.jpg",
   },
   {
     id: 3,
@@ -33,10 +31,9 @@ export const mockedMovies = [
     actors: ["Elijah Wood", "Ian McKellen", "Orlando Bloom"],
     genre: "Fantasy",
     rating: 8.8,
-    releaseDate: new Date("2001-07-29"),
-    imageUrl: new URL(
-      "https://m.media-amazon.com/images/M/MV5BNmVmZGQ2ZTctYzE4NC00YzkxLThhNjYtNGIyZjJmZGEwMjUzXkEyXkFqcGc@._V1_.jpg"
-    ),
+    releaseDate: "2001-07-29",
+    imageUrl:
+      "https://m.media-amazon.com/images/M/MV5BNmVmZGQ2ZTctYzE4NC00YzkxLThhNjYtNGIyZjJmZGEwMjUzXkEyXkFqcGc@._V1_.jpg",
   },
   {
     id: 4,
@@ -46,10 +43,9 @@ export const mockedMovies = [
     actors: ["Elijah Wood", "Ian McKellen", "Viggo Mortensen"],
     genre: "Fantasy",
     rating: 8.9,
-    releaseDate: new Date("2002-12-18"),
-    imageUrl: new URL(
-      "https://m.media-amazon.com/images/M/MV5BNjI5ZmZkNDktZDliMS00ZjlmLWE2MTUtMWVlZjU2YWQ3ZDYxXkEyXkFqcGc@._V1_.jpg"
-    ),
+    releaseDate: "2002-12-18",
+    imageUrl:
+      "https://m.media-amazon.com/images/M/MV5BNjI5ZmZkNDktZDliMS00ZjlmLWE2MTUtMWVlZjU2YWQ3ZDYxXkEyXkFqcGc@._V1_.jpg",
   },
   {
     id: 5,
@@ -59,10 +55,9 @@ export const mockedMovies = [
     actors: ["Elijah Wood", "Ian McKellen", "Orlando Bloom"],
     genre: "Fantasy",
     rating: 8.8,
-    releaseDate: new Date("2001-07-29"),
-    imageUrl: new URL(
-      "https://cdn.europosters.eu/image/750/lord-of-the-rings-fellowship-i11723.jpg"
-    ),
+    releaseDate: "2001-07-29",
+    imageUrl:
+      "https://cdn.europosters.eu/image/750/lord-of-the-rings-fellowship-i11723.jpg",
   },
   {
     id: 6,
@@ -72,10 +67,9 @@ export const mockedMovies = [
     actors: ["Elijah Wood", "Ian McKellen", "Viggo Mortensen"],
     genre: "Fantasy",
     rating: 8.9,
-    releaseDate: new Date("2002-12-18"),
-    imageUrl: new URL(
-      "https://cdn.europosters.eu/image/750/lord-of-the-rings-fellowship-i11723.jpg"
-    ),
+    releaseDate: "2002-12-18",
+    imageUrl:
+      "https://cdn.europosters.eu/image/750/lord-of-the-rings-fellowship-i11723.jpg",
   },
   {
     id: 7,
@@ -85,10 +79,9 @@ export const mockedMovies = [
     actors: ["Elijah Wood", "Ian McKellen", "Orlando Bloom"],
     genre: "Fantasy",
     rating: 8.8,
-    releaseDate: new Date("2001-07-29"),
-    imageUrl: new URL(
-      "https://cdn.europosters.eu/image/750/lord-of-the-rings-fellowship-i11723.jpg"
-    ),
+    releaseDate: "2001-07-29",
+    imageUrl:
+      "https://cdn.europosters.eu/image/750/lord-of-the-rings-fellowship-i11723.jpg",
   },
   {
     id: 8,
@@ -98,9 +91,8 @@ export const mockedMovies = [
     actors: ["Elijah Wood", "Ian McKellen", "Viggo Mortensen"],
     genre: "Fantasy",
     rating: 8.9,
-    releaseDate: new Date("2002-12-18"),
-    imageUrl: new URL(
-      "https://cdn.europosters.eu/image/750/lord-of-the-rings-fellowship-i11723.jpg"
-    ),
+    releaseDate: "2002-12-18",
+    imageUrl:
+      "https://cdn.europosters.eu/image/750/lord-of-the-rings-fellowship-i11723.jpg",
   },
 ];

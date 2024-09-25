@@ -5,6 +5,6 @@ export interface Movie {
   actors: string[];
   genre: string;
   rating: number;
-  releaseDate: Date;
-  imageUrl: URL;
+  releaseDate: string;
+  imageUrl: string;
 }
