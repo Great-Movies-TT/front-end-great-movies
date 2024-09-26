@@ -1,5 +1,9 @@
 # Deployed version
 
+## 🚨 Important message 🚨
+
+Since the front-end and back-end were deployed on a free resource, if any of the servers is inactive for more than 15 minutes, it goes into sleep mode. Therefore, please wait 1-4 minutes for the server to start up again
+
 https://front-end-great-movies.onrender.com/
 
 # Libraries that were used
