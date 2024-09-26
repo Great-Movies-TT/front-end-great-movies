@@ -54,21 +54,6 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [openDatePicker, setOpenDatePicker] = useState(false);
 
-    // useEffect(() => {
-    //   if (typeof value === "string") {
-    //     const date = parse(value, "dd/MM/yyyy", new Date());
-    //     if (!isNaN(date.getTime())) {
-    //       setSelectedDate(date);
-    //     } else {
-    //       console.error("Invalid date string format", value);
-    //     }
-    //   } else if (value instanceof Date) {
-    //     setSelectedDate(value);
-    //   } else {
-    //     setSelectedDate(null);
-    //   }
-    // }, [value]);
-
     useEffect(() => {
       const parsedDate = typeof value === "string" ? parse(value, "dd/MM/yyyy", new Date()) : value;
       if (parsedDate instanceof Date && !isNaN(parsedDate.getTime())) {
@@ -102,7 +87,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <Box sx={{ width: "320px", marginBottom: "0px" }}>
+        <Box sx={{ width: "100%", marginBottom: "0px" }}>
           <CustomDatePicker
             name={name}
             inputRef={inputRef}

@@ -25,21 +25,27 @@ export const AddMovieFormView = ({ control }: AddMovieFormViewProps) => {
         pr: 2,
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "flex-start", gap: "24px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", sm: "column", md: "row" },
+          gap: "24px",
+        }}
+      >
         <FormInputText
           name="title"
           control={control}
           label="Movie title"
           placeholder="Enter title"
           required={true}
-          sx={{ width: "320px" }}
+          sx={{ width: { sm: "100%", md: "320px" } }}
         />
         <FormDatePicker
           name="releaseDate"
           control={control}
           label="Movie release date"
           required={true}
-          sx={{ width: "100%" }}
+          sx={{ width: { sm: "100%", md: "320px" } }}
         />
       </Box>
       <FormInputText
@@ -78,8 +84,9 @@ export const AddMovieFormView = ({ control }: AddMovieFormViewProps) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",
+          flexDirection: { xs: "column", sm: "row" },
           gap: "24px",
-          minWidth: "100%",
+          width: "100%",
         }}
       >
         <FormDropdown
@@ -89,7 +96,7 @@ export const AddMovieFormView = ({ control }: AddMovieFormViewProps) => {
           placeholder="Select genre"
           required={true}
           options={mockedGenres}
-          sx={{ width: "320px" }}
+          sx={{ width: "100%" }}
         />
         <FormDropdown
           name="rating"
@@ -98,7 +105,7 @@ export const AddMovieFormView = ({ control }: AddMovieFormViewProps) => {
           placeholder="Select rating"
           required={true}
           options={mockedRatings}
-          sx={{ width: "320px" }}
+          sx={{ width: "100%" }}
         />
       </Box>
 

@@ -68,9 +68,11 @@ function MovieDetailsPage() {
           sx={{
             display: "flex",
             justifyContent: "space-evenly",
+            alignItems: { xs: "center", sm: "center", md: "flex-start" },
+            flexDirection: { xs: "column", sm: "column", md: "row" },
           }}
         >
-          <Grid2 sx={{ width: "30%" }}>
+          <Grid2 sx={{ width: { xs: "100%", sm: "100%", md: "30%" } }}>
             <Box
               sx={{
                 display: "flex",
@@ -122,7 +124,7 @@ function MovieDetailsPage() {
             </Typography>
           </Grid2>
 
-          <Grid2 sx={{ width: "30%" }}>
+          <Grid2 sx={{ width: { xs: "100%", sm: "100%", md: "30%" } }}>
             <Typography
               variant="body1"
               sx={{ color: theme.palette.common.black, mb: 2 }}

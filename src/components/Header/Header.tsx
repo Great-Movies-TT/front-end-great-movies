@@ -14,10 +14,12 @@ import { useState } from "react";
 import { ROUTES } from "@/enums/routes/Routes";
 import { Link } from "react-router-dom";
 import theme from "@/styles/muiTheme";
+import { selectFavotires } from "@/redux/selectors/favoriteSelectors";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const favorites = selectFavotires();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setIsMenuOpen(true);
@@ -128,6 +130,7 @@ export const Header = () => {
                 onClick={handleCloseNavMenu}
                 to={page.href}
                 sx={{
+                  position: "relative",
                   color: theme.palette.common.white,
                   transition: "color 0.3s ease",
                   "&:hover": {
@@ -151,6 +154,27 @@ export const Header = () => {
                 >
                   {page.name}
                 </Typography>
+                {page.name === "Favorites" && favorites.length > 0 && (
+                  <Box
+                    component="span"
+                    sx={{
+                      position: "absolute",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "12px",
+                      top: 7,
+                      right: -15,
+                      width: 20,
+                      height: 20,
+                      borderRadius: "50%",
+                      backgroundColor: theme.palette.primary.main,
+                      color: theme.palette.common.white,
+                    }}
+                  >
+                    {favorites.length}
+                  </Box>
+                )}
               </Box>
             ))}
           </Box>

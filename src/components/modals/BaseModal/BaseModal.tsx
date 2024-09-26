@@ -42,9 +42,16 @@ const BaseModal = ({
           display: "flex",
           flexDirection: "column",
           alignItems: "left",
-          padding: "32px",
+          padding: {
+            xs: "16px",
+            sm: "32px",
+          },
           width: "100%",
-          maxWidth: width,
+          maxWidth: {
+            xs: "90%",
+            sm: "600px",
+            md: width,
+          },
           borderRadius: "12px",
           backgroundColor: "rgba(80, 95, 111, 1)",
         }}

@@ -113,8 +113,8 @@ export const AddMovieForm = ({ movieId }: AddMovieFormProps) => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "rgba(80, 95, 111, 1)" }}>
-      <Box>
+    <Box sx={{ backgroundColor: "rgba(80, 95, 111, 1)", width: "100%" }}>
+      <Box sx={{ width: "100%" }}>
         <AddMovieFormView control={control} />
 
         <Box

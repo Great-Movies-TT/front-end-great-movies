@@ -58,6 +58,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        width: "100%",
       }}
     >
       {label && (

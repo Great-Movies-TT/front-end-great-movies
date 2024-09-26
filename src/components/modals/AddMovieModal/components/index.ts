@@ -1,3 +1,3 @@
 export * from "./AddMovieForm";
-export * from "./AddEventFormView";
+export * from "./AddMovieFormView";
 export * from "./validationScheme";
