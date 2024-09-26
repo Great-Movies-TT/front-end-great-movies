@@ -17,6 +17,7 @@ import {
   selectMoviesTotalCount,
 } from "@/redux/selectors/movieSelectors";
 import { Movie } from "@/types";
+import { mockedGenres, mockedRatings } from "@/constants";
 
 function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -116,14 +117,7 @@ function HomePage() {
                 label="Genre"
                 placeholder="Sort by genre"
                 value={sortByGenre}
-                options={[
-                  "Action",
-                  "Comedy",
-                  "Drama",
-                  "Horror",
-                  "Romance",
-                  "Fantasy",
-                ]}
+                options={mockedGenres}
                 onChange={handleSortByGenre}
                 sx={{ minWidth: "200px" }}
               />
@@ -134,7 +128,7 @@ function HomePage() {
                 label="Min rating"
                 placeholder="Select rating"
                 value={sortByRating !== null ? String(sortByRating) : ""}
-                options={["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]}
+                options={mockedRatings}
                 onChange={handleSortByRating}
                 sx={{ minWidth: "200px" }}
               />
