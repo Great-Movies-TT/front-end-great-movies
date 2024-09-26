@@ -8,7 +8,7 @@ import type {
 } from "@/types";
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: import.meta.env.VITE_BASE_URL,
 });
 
 export class HttpService implements HttpServiceInterface {
