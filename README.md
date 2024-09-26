@@ -1,3 +1,7 @@
+# Deployed version
+
+https://front-end-great-movies.onrender.com/
+
 # Libraries that were used
 
 * Axios;
