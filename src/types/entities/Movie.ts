@@ -1,5 +1,5 @@
 export interface Movie {
-  _id: number;
+  _id: string;
   title: string;
   description: string;
   actors: string[];
@@ -11,6 +11,8 @@ export interface Movie {
 }
 
 export interface AddMovie extends Omit<Movie, "_id"> {}
+
+export interface UpdateMovie extends Partial<Movie> {}
 
 export interface MovieSeachPayload {
   page: number;

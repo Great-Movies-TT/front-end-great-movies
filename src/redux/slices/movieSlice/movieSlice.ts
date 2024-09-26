@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { initialMovieState } from "./initialMovieState";
-import { AddMovie, Movie, MovieSeachPayload } from "@/types";
+import { AddMovie, Movie, MovieSeachPayload, UpdateMovie } from "@/types";
 
 const movieSlice = createSlice({
   name: "movieSlice",
@@ -21,18 +21,20 @@ const movieSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    updateMovieRequest: (state) => {
+    updateMovieRequest: (
+      state,
+      _action: PayloadAction<{ movieId: string; movie: UpdateMovie }>
+    ) => {
       state.isLoading = true;
     },
-    updateMovieSuccess: (state, action: PayloadAction<Movie[]>) => {
-      state.movies = action.payload;
+    updateMovieSuccess: (state) => {
       state.isLoading = false;
     },
     updateMovieFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
     },
-    deleteMovieRequest: (state, _action: PayloadAction<number>) => {
+    deleteMovieRequest: (state, _action: PayloadAction<string>) => {
       state.isLoading = true;
     },
     deleteMovieSuccess: (state) => {

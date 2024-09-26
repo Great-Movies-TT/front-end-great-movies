@@ -28,7 +28,7 @@ const favoritesSlice = createSlice({
       }
       localStorage.setItem("favorites", JSON.stringify(state.favorites));
     },
-    removeFavorite(state, { payload }: PayloadAction<number>) {
+    removeFavorite(state, { payload }: PayloadAction<string>) {
       state.favorites = state.favorites.filter((movie) => movie._id !== payload);
       localStorage.setItem("favorites", JSON.stringify(state.favorites));
     },

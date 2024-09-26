@@ -11,9 +11,9 @@ export const validationSchema = () => {
 
     rating: yup
       .number()
-      .required("This field is required")
-      .min(1, "Rating must be at least 0")
-      .max(10, "Rating must be at most 10"),
+      .min(1, "Rating must be at least 1")
+      .max(10, "Rating must be at most 10")
+      .required("This field is required"),
 
     releaseDate: yup.string().required("This field is required"),
 

@@ -6,6 +6,8 @@ import { truncate } from "@/utils";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { addFavorite } from "@/redux/slices/favoritesSlice/favoritesSlice";
 import { deleteMovieRequest } from "@/redux/slices/movieSlice/movieSlice";
+import { addServiceModal } from "@/redux/slices/serviceModalSlice";
+import { ServiceModalName } from "@/enums";
 
 interface CardProps {
   movie: Movie;
@@ -19,12 +21,6 @@ export const Card = ({ movie }: CardProps) => {
 
   const handleAddToFavorites = () => {
     dispatch(addFavorite(movie));
-
-    const newSearchParams = new URLSearchParams(searchParams.toString());
-    newSearchParams.delete("genre");
-    newSearchParams.delete("minRating");
-
-    setSearchParams(newSearchParams);
   };
 
   const handleDeleteMovie = () => {
@@ -37,7 +33,16 @@ export const Card = ({ movie }: CardProps) => {
     setSearchParams(newSearchParams);
   };
 
-  const handleEditMovie = () => {};
+  const handleEditMovie = () => {
+    dispatch(
+      addServiceModal({
+        type: ServiceModalName.EditMovie,
+        payload: {
+          movieId: movie._id,
+        },
+      })
+    );
+  };
 
   return (
     <Paper
