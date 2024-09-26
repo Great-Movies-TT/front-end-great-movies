@@ -1,9 +1,17 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import HttpService from "@/services/HttpService/HttpService";
+import { AxiosError } from "axios";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { AxiosError, type AxiosResponse } from "axios";
-import { AddMovie, Movie, MovieSeachPayload, UpdateMovie } from "@/types";
+import type { AxiosResponse } from "axios";
+import type {
+  AddMovie,
+  Movie,
+  MovieSeachPayload,
+  TotalCountPayload,
+  UpdateMovie,
+} from "@/types";
 import {
+  addMovieFailure,
   addMovieRequest,
   addMovieSuccess,
   deleteMovieFailure,
@@ -21,11 +29,6 @@ import {
 import { ServiceModalName } from "@/enums";
 import { removeServiceModal } from "../slices/serviceModalSlice";
 
-interface ErrorResponse {
-  flag?: string[];
-  message?: string;
-}
-
 function* getMoviesSaga({
   payload: { page, limit, genre, minRating },
 }: PayloadAction<MovieSeachPayload>) {
@@ -40,24 +43,37 @@ function* getMoviesSaga({
     yield put(getMoviesSuccess(response.data));
   } catch (error) {
     if (error instanceof AxiosError) {
+      console.error(error);
       yield put(getMoviesFailure(error.message));
     } else {
+      console.error("An unknown error occurred.");
       yield put(getMoviesFailure("An unknown error occurred."));
     }
   }
 }
 
-function* getTotalCountSaga() {
+function* getTotalCountSaga(action: PayloadAction<TotalCountPayload>) {
+  const { genre, minRating } = action.payload;
+
+  const params: { [key: string]: any } = {};
+  if (genre) params.genre = genre;
+  if (minRating !== null && minRating !== undefined)
+    params.minRating = minRating;
+
   try {
     const response: AxiosResponse<number> = yield call(
       HttpService.get,
-      "/movies/count"
+      "/movies/count",
+      params
     );
+
     yield put(getTotalCountSuccess(response.data));
   } catch (error: any) {
     if (error instanceof Error) {
+      console.error(error);
       yield put(getMoviesFailure(error.message));
     } else {
+      console.error("An unknown error occurred.");
       yield put(getMoviesFailure("An unknown error occurred."));
     }
   }
@@ -84,17 +100,8 @@ function* addMovieSaga({ payload }: PayloadAction<AddMovie>) {
       );
     }
   } catch (error) {
-    let errorMessage = "An unexpected error occurred.";
-
-    if (error instanceof AxiosError) {
-      const status = error.response?.status;
-      errorMessage = error.response?.data?.message || errorMessage;
-
-      const data = error.response?.data as ErrorResponse;
-      const errorFlag = data?.flag;
-
-      console.error(errorFlag, status, errorMessage);
-    }
+    console.error(error);
+    yield put(addMovieFailure("An unexpected error occurred."));
   }
 }
 
@@ -118,8 +125,10 @@ function* deleteMovieSaga({ payload }: PayloadAction<string>) {
     }
   } catch (error) {
     if (error instanceof AxiosError) {
+      console.error(error.message);
       yield put(deleteMovieFailure(error.message));
     } else {
+      console.error("An unknown error occurred.");
       yield put(deleteMovieFailure("An unknown error occurred."));
     }
   }
@@ -148,22 +157,13 @@ function* updateMovieSaga({
       );
     }
   } catch (error) {
-    let errorMessage = "An unexpected error occurred.";
-
     if (error instanceof AxiosError) {
-      const status = error.response?.status;
-      errorMessage = error.response?.data?.message || errorMessage;
-
-      console.error(status, errorMessage);
-
-      if (status === 404) {
-        console.error("Movie not found");
-        yield put(updateMovieFailure("Movie not found"));
-      }
-
-      console.error(errorMessage);
-      yield put(updateMovieFailure(errorMessage));
+      console.error(error.message);
+      yield put(updateMovieFailure(error.message));
     }
+
+    console.error(error);
+    yield put(updateMovieFailure("An unexpected error occurred."));
   }
 }
 

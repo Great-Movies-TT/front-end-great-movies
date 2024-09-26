@@ -1,4 +1,4 @@
-import { MovieState } from "@/types";
+import type { MovieState } from "@/types";
 
 export const initialMovieState: MovieState = {
   movies: [],

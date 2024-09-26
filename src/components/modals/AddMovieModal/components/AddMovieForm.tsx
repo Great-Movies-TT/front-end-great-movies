@@ -1,6 +1,5 @@
 import { Box, Button } from "@mui/material";
 import { useForm, useFormState } from "react-hook-form";
-import type { SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -16,7 +15,8 @@ import {
   addMovieRequest,
   updateMovieRequest,
 } from "@/redux/slices/movieSlice/movieSlice";
-import { AddMovie } from "@/types";
+import type { SubmitHandler } from "react-hook-form";
+import type { AddMovie } from "@/types";
 import {
   selectCurrentMovie,
   selectCurrentMovieLoading,

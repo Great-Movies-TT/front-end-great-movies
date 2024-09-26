@@ -1,6 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { initialCurrentMovieState } from "./initialCurrentMovieState";
-import { Movie } from "@/types";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import type { Movie } from "@/types";
 
 const currentMovieSlice = createSlice({
   name: "currentMovieSlice",

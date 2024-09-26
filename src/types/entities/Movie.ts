@@ -20,3 +20,8 @@ export interface MovieSeachPayload {
   genre?: string;
   minRating?: number | null;
 }
+
+export interface TotalCountPayload {
+  genre?: string;
+  minRating?: number | null;
+}

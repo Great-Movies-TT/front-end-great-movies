@@ -1,12 +1,12 @@
-import { PayloadAction } from "@reduxjs/toolkit";
 import { call, put, takeLatest } from "redux-saga/effects";
 import {
   getCurrentMovieRequest,
   getCurrentMovieSuccess,
 } from "../slices/currentMovieSlice/currentMovieSlice";
-import { AxiosError, AxiosResponse } from "axios";
 import HttpService from "@/services/HttpService/HttpService";
-import { Movie } from "@/types";
+import type { AxiosResponse } from "axios";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import type { Movie } from "@/types";
 
 function* getCurrentMovieSaga({ payload }: PayloadAction<string>) {
   try {
@@ -19,20 +19,7 @@ function* getCurrentMovieSaga({ payload }: PayloadAction<string>) {
       yield put(getCurrentMovieSuccess(response.data));
     }
   } catch (error) {
-    let errorMessage = "An unexpected error occurred.";
-
-    if (error instanceof AxiosError) {
-      const status = error.response?.status;
-      errorMessage = error.response?.data?.message || errorMessage;
-
-      if (status === 404) {
-        console.error("Movie not found");
-        yield put(getCurrentMovieSuccess(null));
-      }
-
-      console.error(errorMessage);
-    }
-
+    console.error(error);
     yield put(getCurrentMovieSuccess(null));
   }
 }

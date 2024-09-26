@@ -1,5 +1,4 @@
-import { useMemo, useState } from "react";
-import type { RefObject } from "react";
+import { useState } from "react";
 import {
   Box,
   Typography,
@@ -10,8 +9,9 @@ import {
   SelectChangeEvent,
   MenuItem,
 } from "@mui/material";
-import type { SxProps } from "@mui/material";
 import { ArrowDownIcon } from "@/assets/icons";
+import type { RefObject } from "react";
+import type { SxProps } from "@mui/material";
 import type { WithSx } from "@/types";
 
 interface DropdownProps extends WithSx {
@@ -51,11 +51,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
     setFocused(false);
     if (onBlur) onBlur(event);
   };
-
-  const sortedOptions = useMemo(
-    () => options.sort((a, b) => a.localeCompare(b)),
-    [options]
-  );
 
   return (
     <Box
@@ -150,7 +145,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             {placeholder}
           </Typography>
         </MenuItem>
-        {sortedOptions.map((option) => (
+        {options.map((option) => (
           <MenuItem key={option} value={option}>
             {option}
           </MenuItem>

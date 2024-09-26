@@ -1,7 +1,7 @@
 import { Box, Button, Paper, Typography } from "@mui/material";
 import theme from "@/styles/muiTheme";
 import { Link, useSearchParams } from "react-router-dom";
-import { Movie } from "@/types";
+import type { Movie } from "@/types";
 import { truncate } from "@/utils";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { addFavorite } from "@/redux/slices/favoritesSlice/favoritesSlice";
@@ -126,7 +126,7 @@ export const Card = ({ movie }: CardProps) => {
           sx={{
             display: "block",
             height: "300px",
-            objectFit: "fill",
+            objectFit: "cover",
             transition: "transform 0.3s ease",
             "&:hover": {
               transition: "transform 0.3s ease",

@@ -16,14 +16,13 @@ import {
   selectMovies,
   selectMoviesTotalCount,
 } from "@/redux/selectors/movieSelectors";
-import { Movie } from "@/types";
-import { mockedGenres, mockedRatings } from "@/constants";
+import { itemsPerPage, mockedGenres, mockedRatings } from "@/constants";
+import type { Movie } from "@/types";
 
 function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const movies: Movie[] = selectMovies();
   const totalCount = selectMoviesTotalCount();
-  const itemsPerPage = 8;
 
   const currentPage = Number(searchParams.get("page")) || 1;
   const sortByGenre = searchParams.get("genre") || "";
@@ -34,11 +33,16 @@ function HomePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTotalCountRequest());
     dispatch(
       getMoviesRequest({
         page: currentPage,
         limit: itemsPerPage,
+        genre: sortByGenre,
+        minRating: sortByRating,
+      })
+    );
+    dispatch(
+      getTotalCountRequest({
         genre: sortByGenre,
         minRating: sortByRating,
       })

@@ -4,9 +4,9 @@ import {
   FormDropdown,
   FormInputText,
 } from "@/components";
-import { mockedGenres, mockedRatings } from "@/constants";
-import { AddMovie } from "@/types";
+import { famousActors, mockedGenres, mockedRatings } from "@/constants";
 import { Box, Stack, type SxProps } from "@mui/material";
+import type { AddMovie } from "@/types";
 import type { Control } from "react-hook-form";
 
 interface AddMovieFormViewProps {
@@ -38,7 +38,6 @@ export const AddMovieFormView = ({ control }: AddMovieFormViewProps) => {
           name="releaseDate"
           control={control}
           label="Movie release date"
-          disablePast={true}
           required={true}
           sx={{ width: "100%" }}
         />
@@ -109,7 +108,7 @@ export const AddMovieFormView = ({ control }: AddMovieFormViewProps) => {
         label="Actors"
         placeholder="Select actors"
         required={true}
-        options={["Actor 1", "Actor 2", "Actor 3", "Actor 4", "Actor 5"]}
+        options={famousActors}
         sx={{ width: "100%" }}
       />
     </Stack>

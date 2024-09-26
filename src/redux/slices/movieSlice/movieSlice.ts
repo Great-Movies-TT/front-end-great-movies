@@ -1,6 +1,13 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { initialMovieState } from "./initialMovieState";
-import { AddMovie, Movie, MovieSeachPayload, UpdateMovie } from "@/types";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import type {
+  AddMovie,
+  Movie,
+  MovieSeachPayload,
+  TotalCountPayload,
+  UpdateMovie,
+} from "@/types";
 
 const movieSlice = createSlice({
   name: "movieSlice",
@@ -44,7 +51,10 @@ const movieSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    getTotalCountRequest: () => {},
+    getTotalCountRequest: (
+      _state,
+      _action: PayloadAction<TotalCountPayload>
+    ) => {},
     getTotalCountSuccess: (state, action: PayloadAction<number>) => {
       state.totalCount = action.payload;
     },
@@ -52,6 +62,10 @@ const movieSlice = createSlice({
     addMovieSuccess: (state) => {
       state.isLoading = false;
       state.error = null;
+    },
+    addMovieFailure: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });
@@ -71,6 +85,7 @@ export const {
   addMovieRequest,
   addMovieSuccess,
   sendInitialDataRequest,
+  addMovieFailure,
 } = movieSlice.actions;
 
 export default movieSlice.reducer;

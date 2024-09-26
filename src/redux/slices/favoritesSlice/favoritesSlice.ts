@@ -1,4 +1,4 @@
-import { Movie } from "@/types";
+import type { Movie } from "@/types";
 import { checkWindow } from "@/utils";
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
@@ -29,7 +29,9 @@ const favoritesSlice = createSlice({
       localStorage.setItem("favorites", JSON.stringify(state.favorites));
     },
     removeFavorite(state, { payload }: PayloadAction<string>) {
-      state.favorites = state.favorites.filter((movie) => movie._id !== payload);
+      state.favorites = state.favorites.filter(
+        (movie) => movie._id !== payload
+      );
       localStorage.setItem("favorites", JSON.stringify(state.favorites));
     },
     setFavorites(state, { payload }: PayloadAction<Movie[]>) {

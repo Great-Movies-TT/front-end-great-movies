@@ -54,18 +54,30 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [openDatePicker, setOpenDatePicker] = useState(false);
 
+    // useEffect(() => {
+    //   if (typeof value === "string") {
+    //     const date = parse(value, "dd/MM/yyyy", new Date());
+    //     if (!isNaN(date.getTime())) {
+    //       setSelectedDate(date);
+    //     } else {
+    //       console.error("Invalid date string format", value);
+    //     }
+    //   } else if (value instanceof Date) {
+    //     setSelectedDate(value);
+    //   } else {
+    //     setSelectedDate(null);
+    //   }
+    // }, [value]);
+
     useEffect(() => {
-      if (typeof value === "string") {
-        const date = parse(value, "dd/MM/yyyy", new Date());
-        if (!isNaN(date.getTime())) {
-          setSelectedDate(date);
-        } else {
-          console.error("Invalid date string format", value);
-        }
-      } else if (value instanceof Date) {
-        setSelectedDate(value);
+      const parsedDate = typeof value === "string" ? parse(value, "dd/MM/yyyy", new Date()) : value;
+      if (parsedDate instanceof Date && !isNaN(parsedDate.getTime())) {
+        setSelectedDate(parsedDate);
       } else {
         setSelectedDate(null);
+        if (typeof value === "string") {
+          console.error("Invalid date string format", value);
+        }
       }
     }, [value]);
 

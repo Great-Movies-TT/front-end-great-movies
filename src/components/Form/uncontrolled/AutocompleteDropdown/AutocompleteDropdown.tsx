@@ -1,7 +1,7 @@
 import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
-import { SxProps } from "@mui/material";
+import { Paper, SxProps } from "@mui/material";
 import { InputText } from "../InputText";
 
 interface AutocompleteDropdownProps {
@@ -37,6 +37,17 @@ const AutocompleteDropdown: React.FC<AutocompleteDropdownProps> = ({
         value={value}
         onChange={onChange}
         filterSelectedOptions
+        PaperComponent={(props) => (
+          <Paper
+            {...props}
+            sx={{
+              maxHeight: "200px",
+              mt: 0.25,
+              boxShadow: "4px 4px 24px 0px rgba(42, 43, 47, 0.1216)",
+              borderRadius: "8px",
+            }}
+          />
+        )}
         renderTags={(value: readonly string[], getTagProps) =>
           value.map((option: string, index: number) => {
             const { key, ...tagProps } = getTagProps({ index });

@@ -1,4 +1,4 @@
-import { CurrentMovieState } from "@/types";
+import type { CurrentMovieState } from "@/types";
 
 export const initialCurrentMovieState: CurrentMovieState = {
   currentMovie: null,

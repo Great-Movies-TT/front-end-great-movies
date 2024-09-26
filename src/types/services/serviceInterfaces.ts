@@ -1,4 +1,4 @@
-import { RequestConfig, RequestParams, Response } from "@/types";
+import type { RequestConfig, RequestParams, Response } from "@/types";
 
 export interface HttpServiceInterface {
   get<T>(

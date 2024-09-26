@@ -52,7 +52,7 @@ function MovieDetailsPage() {
               display: "block",
               maxHeight: "400px",
               maxWidth: "400px",
-              objectFit: "fill",
+              objectFit: "cover",
               transition: "transform 0.3s ease, border-radius 0.3s ease",
               borderRadius: "8px",
 
