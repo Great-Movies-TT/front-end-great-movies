@@ -16,7 +16,7 @@ https://front-end-great-movies.onrender.com/
 * redux-toolkit/redux-saga;
 * react-router-dom;
 
-I use `Render` resource to deploy front-end and back-end;
+I used `Render` resource to deploy front-end and back-end;
 
 # How to run this project
 
