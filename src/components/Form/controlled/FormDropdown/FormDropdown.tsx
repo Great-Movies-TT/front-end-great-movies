@@ -27,7 +27,6 @@ export const FormDropdown = <TFieldValues extends FieldValues>({
   label,
   placeholder,
   required,
-  error,
   options,
   sx,
 }: FormDropdownProps<TFieldValues>) => {
