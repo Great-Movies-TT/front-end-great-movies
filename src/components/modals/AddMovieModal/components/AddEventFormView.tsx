@@ -4,6 +4,7 @@ import {
   FormDropdown,
   FormInputText,
 } from "@/components";
+import { mockedGenres, mockedRatings } from "@/constants";
 import { AddMovie } from "@/types";
 import { Box, Stack, type SxProps } from "@mui/material";
 import type { Control } from "react-hook-form";
@@ -48,6 +49,17 @@ export const AddMovieFormView = ({ control }: AddMovieFormViewProps) => {
         label="Image url"
         placeholder="Enter the image url"
         required={true}
+        minRows={3}
+        maxRows={3}
+        multiline
+        sx={{ width: "100%" }}
+      />
+      <FormInputText
+        name="director"
+        control={control}
+        label="Director"
+        placeholder="Enter director name"
+        required={true}
         multiline
         sx={{ width: "100%" }}
       />
@@ -77,7 +89,7 @@ export const AddMovieFormView = ({ control }: AddMovieFormViewProps) => {
           label="Genre"
           placeholder="Select genre"
           required={true}
-          options={["Action", "Comedy", "Drama", "Horror", "Romance"]}
+          options={mockedGenres}
           sx={{ width: "320px" }}
         />
         <FormDropdown
@@ -86,7 +98,7 @@ export const AddMovieFormView = ({ control }: AddMovieFormViewProps) => {
           label="Rating"
           placeholder="Select rating"
           required={true}
-          options={["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]}
+          options={mockedRatings}
           sx={{ width: "320px" }}
         />
       </Box>

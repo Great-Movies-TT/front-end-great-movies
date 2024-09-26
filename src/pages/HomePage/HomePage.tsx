@@ -1,25 +1,48 @@
 import { Card, Dropdown } from "@/components";
 import { Box, Button, Pagination, SelectChangeEvent } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { mockedMovies } from "@/constants";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setFavorites } from "@/redux/slices/favoritesSlice/favoritesSlice";
 import theme from "@/styles/muiTheme";
 import { addServiceModal } from "@/redux/slices/serviceModalSlice";
 import { ServiceModalName } from "@/enums";
 import { useSearchParams } from "react-router-dom";
+import {
+  getMoviesRequest,
+  getTotalCountRequest,
+} from "@/redux/slices/movieSlice/movieSlice";
+import {
+  selectMovies,
+  selectMoviesTotalCount,
+} from "@/redux/selectors/movieSelectors";
+import { Movie } from "@/types";
 
 function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [sortByGenre, setSortByGenre] = useState("");
-  const [sortByRating, setSortByRating] = useState<number | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  // const [totalMovies, setTotalMovies] = useState(0);
-
+  const movies: Movie[] = selectMovies();
+  const totalCount = selectMoviesTotalCount();
   const itemsPerPage = 8;
 
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const sortByGenre = searchParams.get("genre") || "";
+  const sortByRating = searchParams.get("minRating")
+    ? Number(searchParams.get("minRating"))
+    : null;
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTotalCountRequest());
+    dispatch(
+      getMoviesRequest({
+        page: currentPage,
+        limit: itemsPerPage,
+        genre: sortByGenre,
+        minRating: sortByRating,
+      })
+    );
+  }, [currentPage, itemsPerPage, sortByGenre, sortByRating]);
 
   useEffect(() => {
     const storedFavorites = JSON.parse(
@@ -29,17 +52,6 @@ function HomePage() {
       dispatch(setFavorites(storedFavorites));
     }
   }, [dispatch]);
-
-  useEffect(() => {
-    const querySortByGenre = searchParams.get("genre");
-    const querySortByRating = searchParams.get("minRating");
-    const queryPage = searchParams.get("page");
-
-    if (querySortByGenre) setSortByGenre(querySortByGenre);
-    if (querySortByRating)
-      setSortByRating(querySortByRating ? Number(querySortByRating) : null);
-    if (queryPage) setCurrentPage(Number(queryPage));
-  }, [searchParams]);
 
   useEffect(() => {
     const query: { [key: string]: string } = {};
@@ -59,29 +71,33 @@ function HomePage() {
   };
 
   const handleSortByGenre = (event: SelectChangeEvent<string>) => {
-    setSortByGenre(event.target.value);
+    searchParams.set("genre", event.target.value);
+    setSearchParams(searchParams);
   };
 
   const handleSortByRating = (event: SelectChangeEvent<string>) => {
-    setSortByRating(Number(event.target.value));
+    searchParams.set("minRating", event.target.value);
+    setSearchParams(searchParams);
   };
 
   const handleClear = () => {
-    setSortByGenre("");
-    setSortByRating(null);
+    searchParams.delete("genre");
+    searchParams.delete("minRating");
+    setSearchParams(searchParams);
   };
 
   const handlePageChange = (
     _event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    setCurrentPage(value);
+    searchParams.set("page", value.toString());
+    setSearchParams(searchParams);
   };
 
-  const totalPages = Math.ceil(mockedMovies.length / itemsPerPage);
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
 
   return (
-    <Box>
+    <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
       <Grid
         container
         spacing={2}
@@ -163,23 +179,37 @@ function HomePage() {
         </Grid>
       </Grid>
 
-      <Grid container spacing={4} sx={{ mb: 8 }}>
-        {mockedMovies.map((movie) => (
+      <Grid container spacing={4} sx={{ mb: 8, flexGrow: 1 }}>
+        {movies.length > 0 ? (
+          movies.map((movie) => (
+            <Grid
+              key={movie._id}
+              size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Card movie={movie} />
+            </Grid>
+          ))
+        ) : (
           <Grid
-            key={movie.id}
-            size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+            size={{ xs: 12 }}
             sx={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              minHeight: "200px",
             }}
           >
-            <Card movie={movie} />
+            <p>No movies found</p>
           </Grid>
-        ))}
+        )}
       </Grid>
 
-      <Grid container sx={{ width: "100%" }}>
+      <Grid container sx={{ width: "100%", alignSelf: "flex-end" }}>
         <Grid
           size={{ xs: 12 }}
           sx={{

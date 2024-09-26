@@ -11,9 +11,9 @@ export const validationSchema = () => {
 
     rating: yup
       .number()
-      .required("This field is required")
-      .min(1, "Rating must be at least 0")
-      .max(10, "Rating must be at most 10"),
+      .min(1, "Rating must be at least 1")
+      .max(10, "Rating must be at most 10")
+      .required("This field is required"),
 
     releaseDate: yup.string().required("This field is required"),
 
@@ -21,8 +21,15 @@ export const validationSchema = () => {
       .string()
       .required("This field is required")
       .trim()
-      .min(2, "Invalid movie place minimum 2 chars")
-      .max(20, "Invalid movie place maximum 20 chars"),
+      .min(2, "Invalid movie genre minimum 2 chars")
+      .max(40, "Invalid movie genre maximum 40 chars"),
+
+    director: yup
+      .string()
+      .required("This field is required")
+      .trim()
+      .min(2, "Invalid director minimum 2 chars")
+      .max(40, "Invalid director maximum 40 chars"),
 
     description: yup
       .string()

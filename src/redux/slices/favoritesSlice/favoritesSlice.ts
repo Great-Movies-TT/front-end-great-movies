@@ -19,17 +19,17 @@ const favoritesSlice = createSlice({
   initialState: initialFovitesState,
   reducers: {
     addFavorite(state, { payload }: PayloadAction<Movie>) {
-      if (state.favorites.some((movie) => movie.id === payload.id)) {
+      if (state.favorites.some((movie) => movie._id === payload._id)) {
         state.favorites = state.favorites.filter(
-          (movie) => movie.id !== payload.id
+          (movie) => movie._id !== payload._id
         );
       } else {
         state.favorites.push(payload);
       }
       localStorage.setItem("favorites", JSON.stringify(state.favorites));
     },
-    removeFavorite(state, { payload }: PayloadAction<number>) {
-      state.favorites = state.favorites.filter((movie) => movie.id !== payload);
+    removeFavorite(state, { payload }: PayloadAction<string>) {
+      state.favorites = state.favorites.filter((movie) => movie._id !== payload);
       localStorage.setItem("favorites", JSON.stringify(state.favorites));
     },
     setFavorites(state, { payload }: PayloadAction<Movie[]>) {

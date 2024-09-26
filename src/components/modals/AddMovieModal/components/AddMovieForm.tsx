@@ -8,12 +8,20 @@ import {
   removeServiceModal,
 } from "@/redux/slices/serviceModalSlice/serviceModalSlice";
 import { ServiceModalName } from "@/enums";
-import { useDispatch } from "react-redux";
 import { validationSchema } from "./validationScheme";
-import { AppDispatch } from "@/redux/store";
-// import { formatISO } from "date-fns";
 import { useEffect, useRef } from "react";
 import { AddMovieFormView } from ".";
+import { useAppDispatch } from "@/hooks";
+import {
+  addMovieRequest,
+  updateMovieRequest,
+} from "@/redux/slices/movieSlice/movieSlice";
+import { AddMovie } from "@/types";
+import {
+  selectCurrentMovie,
+  selectCurrentMovieLoading,
+} from "@/redux/selectors/currentMovieSelectors";
+import { getCurrentMovieRequest } from "@/redux/slices/currentMovieSlice/currentMovieSlice";
 
 type FormData = yup.InferType<ReturnType<typeof validationSchema>>;
 
@@ -22,60 +30,52 @@ interface AddMovieFormProps {
 }
 
 export const AddMovieForm = ({ movieId }: AddMovieFormProps) => {
-  // const movieData = selectMovieData();
-  // const isLoading = selectMovieDataLoading();
-  const dispatch = useDispatch<AppDispatch>();
+  const movieData = selectCurrentMovie();
+  const isLoading = selectCurrentMovieLoading();
+  const dispatch = useAppDispatch();
 
   const defaultValues: FormData = {
     title: "",
     description: "",
     actors: [],
     genre: "",
+    director: "",
     rating: 1,
     releaseDate: "",
     imageUrl: "",
   };
 
-  const {
-    handleSubmit,
-    control,
-    // watch,
-    // setValue,
-    getValues,
-    // setError,
-    // clearErrors,
-    // resetField,
-    reset,
-  } = useForm<FormData>({
-    defaultValues,
-    resolver: yupResolver(validationSchema()),
-    mode: "onChange",
-  });
+  const { handleSubmit, control, setValue, getValues, reset } =
+    useForm<FormData>({
+      defaultValues,
+      resolver: yupResolver(validationSchema()),
+      mode: "onChange",
+    });
 
   const initialValuesRef = useRef<FormData | null>(null);
 
   useEffect(() => {
     reset(defaultValues);
-    // if (movieId) {
-    //   dispatch(fetchEventById(movieId));
-    // }
+    if (movieId) {
+      dispatch(getCurrentMovieRequest(movieId));
+    }
   }, [movieId, dispatch, reset]);
 
-  // useEffect(() => {
-  //   if (movieId && eventData) {
-  //     (Object.keys(defaultValues) as Array<keyof FormData>).forEach((key) => {
-  //       const value = eventData[key as keyof typeof eventData];
-  //       if (key in eventData) {
-  //         setValue(
-  //           key,
-  //           typeof value === "number" ? String(value) : value ?? null
-  //         );
-  //       }
-  //     });
-  //   }
+  useEffect(() => {
+    if (movieId && movieData) {
+      (Object.keys(defaultValues) as Array<keyof FormData>).forEach((key) => {
+        const value = movieData[key as keyof typeof movieData];
+        if (key in movieData) {
+          setValue(
+            key,
+            typeof value === "number" ? String(value) : value ?? null
+          );
+        }
+      });
+    }
 
-  //   initialValuesRef.current = getValues();
-  // }, [movieId, eventData, setValue, getValues]);
+    initialValuesRef.current = getValues();
+  }, [movieId, movieData, setValue, getValues]);
 
   const { isDirty, isValid } = useFormState({ control });
 
@@ -104,21 +104,11 @@ export const AddMovieForm = ({ movieId }: AddMovieFormProps) => {
     }
   };
 
-  const handleFormSubmit: SubmitHandler<FormData> = (movie) => {
-    dispatch(removeServiceModal(ServiceModalName.AddMovie));
-    console.log(movie);
-
-    // const formatedEvent = {
-    //   ...movie,
-    //   dateOfEvent: formatISO(movie.releaseDate),
-    // };
-
+  const handleFormSubmit: SubmitHandler<FormData> = (movie: AddMovie) => {
     if (movieId) {
-      // dispatch(updateEventById({ id: movieId, payload: formatedEvent }));
-      dispatch(removeServiceModal(ServiceModalName.EditMovie));
+      dispatch(updateMovieRequest({ movieId, movie }));
     } else {
-      // dispatch(createEvent(formatedEvent));
-      dispatch(removeServiceModal(ServiceModalName.EditMovie));
+      dispatch(addMovieRequest(movie));
     }
   };
 
@@ -135,18 +125,13 @@ export const AddMovieForm = ({ movieId }: AddMovieFormProps) => {
             type="button"
             variant="outlined"
             color="primary"
-            // disabled={isLoading}
+            disabled={isLoading}
             sx={{
               width: "50%",
               textTransform: "capitalize",
               borderRadius: "8px",
               padding: "10px 18px",
               borderColor: "palette.primary.main",
-              // "&:hover": {
-              //   borderColor: "border.hover",
-              //   backgroundColor: "rgba(56, 65, 155, 0.10)",
-              //   color: "border.hover",
-              // },
               "&:disabled": {
                 borderColor: "action.disabled",
               },
