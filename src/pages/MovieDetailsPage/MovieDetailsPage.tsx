@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import theme from "@/styles/muiTheme";
 import { format } from "date-fns";
+import star from "@/assets/star.png";
 
 function MovieDetailsPage() {
   const { id } = useParams();
@@ -86,7 +87,7 @@ function MovieDetailsPage() {
               </Box>
               <Box
                 component="img"
-                src="../src/assets/star.png"
+                src={star}
                 sx={{ width: "20px", height: "20px", mr: 0.5 }}
               />
               <Typography variant="body1" sx={{ fontWeight: 600 }}>

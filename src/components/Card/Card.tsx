@@ -8,6 +8,7 @@ import { addFavorite } from "@/redux/slices/favoritesSlice/favoritesSlice";
 import { deleteMovieRequest } from "@/redux/slices/movieSlice/movieSlice";
 import { addServiceModal } from "@/redux/slices/serviceModalSlice";
 import { ServiceModalName } from "@/enums";
+import star from "@/assets/star.png";
 
 interface CardProps {
   movie: Movie;
@@ -148,7 +149,7 @@ export const Card = ({ movie }: CardProps) => {
         <Box sx={{ display: "flex" }}>
           <Box
             component="img"
-            src="../src/assets/star.png"
+            src={star}
             sx={{ width: "20px", height: "20px", mr: 1 }}
           />
           <Typography sx={{ fontWeight: "bold" }}>{movie.rating}</Typography>
