@@ -71,7 +71,7 @@ export const Card = ({ movie }: CardProps) => {
           width: "80px",
           height: "30px",
           zIndex: 1,
-          backgroundColor: theme.palette.primary.main,
+          backgroundColor: theme.palette.error.main,
           borderRadius: "8px",
           textTransform: "none",
           color: theme.palette.common.white,
