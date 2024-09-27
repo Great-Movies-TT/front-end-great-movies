@@ -30,6 +30,8 @@ import { ServiceModalName } from "@/enums";
 import { removeServiceModal } from "../slices/serviceModalSlice";
 import { itemsPerPage } from "@/constants";
 
+const searchParams = new URLSearchParams(window.location.search);
+
 function* getMoviesSaga({
   payload: { page, limit, genre, minRating },
 }: PayloadAction<MovieSeachPayload>) {
@@ -88,12 +90,14 @@ function* addMovieSaga({ payload }: PayloadAction<AddMovie>) {
       payload
     );
 
+    const page = searchParams.get("page");
+
     if (response.status === 201) {
       yield put(addMovieSuccess());
       yield put(removeServiceModal(ServiceModalName.AddMovie));
       yield put(
         getMoviesRequest({
-          page: 1,
+          page: page ? Number(page) : 1,
           limit: itemsPerPage,
           genre: "",
           minRating: null,
@@ -113,11 +117,13 @@ function* deleteMovieSaga({ payload }: PayloadAction<string>) {
       `/movies/${payload}`
     );
 
+    const page = searchParams.get("page");
+
     if (response.status === 200) {
       yield put(deleteMovieSuccess());
       yield put(
         getMoviesRequest({
-          page: 1,
+          page: page ? Number(page) : 1,
           limit: itemsPerPage,
           genre: "",
           minRating: null,
@@ -145,12 +151,14 @@ function* updateMovieSaga({
       movie
     );
 
+    const page = searchParams.get("page");
+
     if (response.status === 200) {
       yield put(updateMovieSuccess());
       yield put(removeServiceModal(ServiceModalName.EditMovie));
       yield put(
         getMoviesRequest({
-          page: 1,
+          page: page ? Number(page) : 1,
           limit: itemsPerPage,
           genre: "",
           minRating: null,
