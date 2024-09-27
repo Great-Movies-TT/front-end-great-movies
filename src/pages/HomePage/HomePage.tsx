@@ -25,8 +25,8 @@ function HomePage() {
   const totalCount = selectMoviesTotalCount();
 
   const currentPage = Number(searchParams.get("page")) || 1;
-  const sortByGenre = searchParams.get("genre") || "";
-  const sortByRating = searchParams.get("minRating")
+  const filterByGenre = searchParams.get("genre") || "";
+  const filterByRating = searchParams.get("minRating")
     ? Number(searchParams.get("minRating"))
     : null;
 
@@ -37,17 +37,17 @@ function HomePage() {
       getMoviesRequest({
         page: currentPage,
         limit: itemsPerPage,
-        genre: sortByGenre,
-        minRating: sortByRating,
+        genre: filterByGenre,
+        minRating: filterByRating,
       })
     );
     dispatch(
       getTotalCountRequest({
-        genre: sortByGenre,
-        minRating: sortByRating,
+        genre: filterByGenre,
+        minRating: filterByRating,
       })
     );
-  }, [currentPage, itemsPerPage, sortByGenre, sortByRating]);
+  }, [currentPage, itemsPerPage, filterByGenre, filterByRating]);
 
   useEffect(() => {
     const storedFavorites = JSON.parse(
@@ -60,12 +60,12 @@ function HomePage() {
 
   useEffect(() => {
     const query: { [key: string]: string } = {};
-    if (sortByGenre) query.genre = sortByGenre;
-    if (sortByRating) query.minRating = String(sortByRating);
+    if (filterByGenre) query.genre = filterByGenre;
+    if (filterByRating) query.minRating = String(filterByRating);
     if (currentPage) query.page = String(currentPage);
 
     setSearchParams(query);
-  }, [sortByGenre, sortByRating, currentPage, setSearchParams]);
+  }, [filterByGenre, filterByRating, currentPage, setSearchParams]);
 
   const addMovieHandler = () => {
     dispatch(
@@ -75,12 +75,12 @@ function HomePage() {
     );
   };
 
-  const handleSortByGenre = (event: SelectChangeEvent<string>) => {
+  const handleFilterByGenre = (event: SelectChangeEvent<string>) => {
     searchParams.set("genre", event.target.value);
     setSearchParams(searchParams);
   };
 
-  const handleSortByRating = (event: SelectChangeEvent<string>) => {
+  const handleFilterByRating = (event: SelectChangeEvent<string>) => {
     searchParams.set("minRating", event.target.value);
     setSearchParams(searchParams);
   };
@@ -117,23 +117,23 @@ function HomePage() {
           <Grid container spacing={3}>
             <Grid size={{ xs: 12, sm: 12, md: 4 }} sx={{ width: "100%" }}>
               <Dropdown
-                name="sortByGenre"
+                name="filterByGenre"
                 label="Genre"
-                placeholder="Sort by genre"
-                value={sortByGenre}
+                placeholder="Select genre"
+                value={filterByGenre}
                 options={mockedGenres}
-                onChange={handleSortByGenre}
+                onChange={handleFilterByGenre}
                 sx={{ minWidth: "200px" }}
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 12, md: 4 }} sx={{ width: "100%" }}>
               <Dropdown
-                name="sortByRating"
+                name="filterByRating"
                 label="Min rating"
                 placeholder="Select rating"
-                value={sortByRating !== null ? String(sortByRating) : ""}
+                value={filterByRating !== null ? String(filterByRating) : ""}
                 options={mockedRatings}
-                onChange={handleSortByRating}
+                onChange={handleFilterByRating}
                 sx={{ minWidth: "200px" }}
               />
             </Grid>

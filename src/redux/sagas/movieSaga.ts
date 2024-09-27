@@ -28,6 +28,7 @@ import {
 } from "../slices/movieSlice/movieSlice";
 import { ServiceModalName } from "@/enums";
 import { removeServiceModal } from "../slices/serviceModalSlice";
+import { itemsPerPage } from "@/constants";
 
 function* getMoviesSaga({
   payload: { page, limit, genre, minRating },
@@ -93,7 +94,7 @@ function* addMovieSaga({ payload }: PayloadAction<AddMovie>) {
       yield put(
         getMoviesRequest({
           page: 1,
-          limit: 8,
+          limit: itemsPerPage,
           genre: "",
           minRating: null,
         })
@@ -117,7 +118,7 @@ function* deleteMovieSaga({ payload }: PayloadAction<string>) {
       yield put(
         getMoviesRequest({
           page: 1,
-          limit: 8,
+          limit: itemsPerPage,
           genre: "",
           minRating: null,
         })
@@ -150,7 +151,7 @@ function* updateMovieSaga({
       yield put(
         getMoviesRequest({
           page: 1,
-          limit: 8,
+          limit: itemsPerPage,
           genre: "",
           minRating: null,
         })

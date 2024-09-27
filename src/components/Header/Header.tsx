@@ -4,13 +4,14 @@ import {
   Box,
   Container,
   IconButton,
-  Menu,
   MenuItem,
   Toolbar,
   Typography,
+  Drawer,
+  useMediaQuery,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ROUTES } from "@/enums/routes/Routes";
 import { Link } from "react-router-dom";
 import theme from "@/styles/muiTheme";
@@ -18,17 +19,22 @@ import { selectFavotires } from "@/redux/selectors/favoriteSelectors";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const favorites = selectFavotires();
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+
+  useEffect(() => {
+    if (isMdUp && isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [isMdUp, isMenuOpen]);
+
+  const handleOpenNavMenu = (_event: React.MouseEvent<HTMLElement>) => {
     setIsMenuOpen(true);
-    setAnchorEl(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setIsMenuOpen(false);
-    setAnchorEl(null);
   };
 
   return (
@@ -61,46 +67,87 @@ export const Header = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
+            <Drawer
+              anchor="top"
               open={isMenuOpen}
               onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
+              PaperProps={{
+                sx: {
+                  backgroundColor: theme.palette.info.dark,
+                  py: 4,
+                },
+              }}
+              sx={{
+                display: { xs: "flex", md: "none" },
+              }}
             >
               {pagesList.map((page) => (
                 <MenuItem
                   key={page.id}
                   onClick={handleCloseNavMenu}
-                  sx={{ textAlign: "center" }}
+                  sx={{ textAlign: "center", mb: 1 }}
                 >
                   <Box
                     component={Link}
-                    onClick={handleCloseNavMenu}
                     to={page.href}
                     sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100%",
                       textDecoration: "none",
-                      color: theme.palette.common.black,
+                      color: theme.palette.common.white,
                       transition: "color 0.3s ease",
                       "&:hover": {
-                        color: theme.palette.primary.main,
+                        color: "primary.main",
                         transition: "color 0.3s ease",
                       },
                     }}
                   >
-                    {page.name}
+                    <Typography
+                      noWrap
+                      sx={{
+                        position: "relative",
+                        maxWidth: "fit-content",
+                        overflow: "visible",
+                        my: 2,
+                        color: theme.palette.common.white,
+                        transition: "color 0.3s ease",
+                        "&:hover": {
+                          color: theme.palette.primary.main,
+                          transition: "color 0.3s ease",
+                        },
+                      }}
+                    >
+                      {page.name}
+
+                      {page.name === "Favorites" && favorites.length > 0 && (
+                        <Box
+                          component="span"
+                          sx={{
+                            position: "absolute",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "12px",
+                            top: -10,
+                            right: -15,
+                            width: 20,
+                            height: 20,
+                            borderRadius: "50%",
+                            backgroundColor: theme.palette.primary.main,
+                            color: theme.palette.common.white,
+                          }}
+                        >
+                          {favorites.length}
+                        </Box>
+                      )}
+                    </Typography>
                   </Box>
                 </MenuItem>
               ))}
-            </Menu>
+            </Drawer>
           </Box>
+
           <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
             <Box component={Link} to={ROUTES.HOME}>
               <Box
@@ -115,6 +162,7 @@ export const Header = () => {
               />
             </Box>
           </Box>
+
           <Box
             sx={{
               flexGrow: 1,
