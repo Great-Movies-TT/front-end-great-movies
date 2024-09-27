@@ -19,7 +19,7 @@ export const AddMovieFormView = ({ control }: AddMovieFormViewProps) => {
     <Stack
       spacing={3}
       sx={{
-        maxHeight: "516px",
+        maxHeight: { xs: "400px", sm: "400px", md: "516px"},
         overflowY: "auto",
         mb: 4,
         pr: 2,
